@@ -1,1 +1,1 @@
-# Lindqvist_et_al_2023_Psychoneuroendocrinology
+# Lindqvist_etal_2023_Psychoneuroendocrinology
