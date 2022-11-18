@@ -1,0 +1,142 @@
+      
+      . *Section 3.0: Results, second paragraph
+      . **Longitudinal changes
+      . ***ccf-mtDNAchanges over time
+      . xtgee mtdna_ccf_log i.time if group == 0, vce(bootstrap, nodots reps(1000))
+      
+      GEE population-averaged model                   Number of obs     =        138
+      Group variable:                         id      Number of groups  =         46
+      Link:                             identity      Obs per group:
+      Family:                           Gaussian                    min =          3
+      Correlation:                  exchangeable                    avg =        3.0
+                                                                    max =          3
+                                                      Wald chi2(2)      =       6.78
+      Scale parameter:                  1.306336      Prob > chi2       =     0.0336
+      
+                                           (Replications based on 46 clusters in id)
+      ------------------------------------------------------------------------------
+                   |   Observed   Bootstrap                         Normal-based
+      mtdna_ccf_~g |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+              time |
+                9  |    .390883   .1580899     2.47   0.013     .0810325    .7007334
+               18  |   .2432118   .2008364     1.21   0.226    -.1504203    .6368438
+                   |
+             _cons |   5.082377   .1125793    45.14   0.000     4.861725    5.303028
+      ------------------------------------------------------------------------------
+      
+      . 
+      . margins time
+      
+      Adjusted predictions                            Number of obs     =        138
+      Model VCE    : Bootstrap
+      
+      Expression   : Linear prediction, predict()
+      
+      ------------------------------------------------------------------------------
+                   |            Delta-method
+                   |     Margin   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+              time |
+                1  |   5.082377   .1125793    45.14   0.000     4.861725    5.303028
+                9  |   5.473259   .1823606    30.01   0.000     5.115839     5.83068
+               18  |   5.325588   .1921067    27.72   0.000     4.949066    5.702111
+      ------------------------------------------------------------------------------
+      
+      . 
+      . permute mtdna_ccf_log _b, verbose nodots reps(1000): xtgee mtdna_ccf_log i.time if group == 0
+      
+      Monte Carlo permutation results                 Number of obs     =        138
+      
+            command:  xtgee mtdna_ccf_log i.time
+            1b.time:  _b[1b.time]
+             9.time:  _b[9.time]
+            18.time:  _b[18.time]
+              _cons:  _b[_cons]
+        permute var:  mtdna_ccf_log
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+              time |
+                1  |  (empty)                                             
+                9  |    .390883     108    1000  0.1080  0.0098   .089439   .1289038
+               18  |   .2432118     311    1000  0.3110  0.0146  .2824013   .3407162
+                   |
+             _cons |   5.082376     943    1000  0.9430  0.0073  .9267773   .9565464
+      ------------------------------------------------------------------------------
+      Note: Confidence intervals are with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . *mtDNA ratio changes over timne
+      . xtgee mtdna_ratio_log i.time if group == 0, vce(bootstrap, nodots reps(1000))
+      
+      GEE population-averaged model                   Number of obs     =        138
+      Group variable:                         id      Number of groups  =         47
+      Link:                             identity      Obs per group:
+      Family:                           Gaussian                    min =          1
+      Correlation:                  exchangeable                    avg =        2.9
+                                                                    max =          3
+                                                      Wald chi2(2)      =       3.71
+      Scale parameter:                  .0517805      Prob > chi2       =     0.1566
+      
+                                           (Replications based on 47 clusters in id)
+      ------------------------------------------------------------------------------
+                   |   Observed   Bootstrap                         Normal-based
+      mtdna_rati~g |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+              time |
+                9  |   .0793158   .0418895     1.89   0.058    -.0027861    .1614178
+               18  |   .0518386   .0375302     1.38   0.167    -.0217193    .1253965
+                   |
+             _cons |  -.1164322    .033481    -3.48   0.001    -.1820538   -.0508106
+      ------------------------------------------------------------------------------
+      
+      . 
+      . margins time
+      
+      Adjusted predictions                            Number of obs     =        137
+      Model VCE    : Bootstrap
+      
+      Expression   : Linear prediction, predict()
+      
+      ------------------------------------------------------------------------------
+                   |            Delta-method
+                   |     Margin   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+              time |
+                1  |  -.1164322    .033481    -3.48   0.001    -.1820538   -.0508106
+                9  |  -.0371163   .0336678    -1.10   0.270    -.1031039    .0288713
+               18  |  -.0645936   .0332286    -1.94   0.052    -.1297205    .0005333
+      ------------------------------------------------------------------------------
+      
+      . 
+      . permute mtdna_ratio_log _b, verbose nodots reps(1000): xtgee mtdna_ratio_log i.time if group == 0
+      
+      Monte Carlo permutation results                 Number of obs     =        138
+      
+            command:  xtgee mtdna_ratio_log i.time
+            1b.time:  _b[1b.time]
+             9.time:  _b[9.time]
+            18.time:  _b[18.time]
+              _cons:  _b[_cons]
+        permute var:  mtdna_ratio_log
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+              time |
+                1  |  (empty)                                             
+                9  |   .0793158      99    1000  0.0990  0.0094  .0811911   .1192085
+               18  |   .0518386     295    1000  0.2950  0.0144  .2668729   .3243396
+                   |
+             _cons |  -.1164322      67    1000  0.0670  0.0079  .0522978     .08431
+      ------------------------------------------------------------------------------
+      Note: Confidence intervals are with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . 
+      . 
+      . translate @Results "section_3.0_paragraph_2_mtDNA_changes_over_time.txt", cmdnumber(off) logo(off) replace

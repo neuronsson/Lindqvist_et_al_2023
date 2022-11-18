@@ -1,0 +1,149 @@
+      
+      . *Section 3.0: Results, second paragraph
+      . **Correlations between mtDNA changes and clinical scores
+      . gen lsassr_d_post_b2 = lsassr18-lsassr9
+      (42 missing values generated)
+      
+      . gen lsassr_d_post_b1b2 = lsassr18 - ((lsassr1+lsassr9)/2)
+      (42 missing values generated)
+      
+      . 
+      . **ccf-mtDNA
+      . gen mtdna_ccf_log_d_post_b1b2 = mtdna_ccf_log18 - ((mtdna_ccf_log1+mtdna_ccf_log9)/2)
+      (42 missing values generated)
+      
+      . gen mtdna_ratio_log_d_post_b1b2 = mtdna_ratio_log18 - ((mtdna_ratio_log1+mtdna_ratio_log9)/2) 
+      (43 missing values generated)
+      
+      . 
+      . reg lsassr_d_post_b1b2 mtdna_ccf_log_d_post_b1b2 if group == 0, beta
+      
+            Source |       SS           df       MS      Number of obs   =        46
+      -------------+----------------------------------   F(1, 44)        =      0.00
+             Model |  2.18842865         1  2.18842865   Prob > F        =    0.9454
+          Residual |  20283.3387        44  460.984971   R-squared       =    0.0001
+      -------------+----------------------------------   Adj R-squared   =   -0.0226
+             Total |  20285.5272        45  450.789493   Root MSE        =    21.471
+      
+      -------------------------------------------------------------------------------------------
+             lsassr_d_post_b1b2 |      Coef.   Std. Err.      t    P>|t|                     Beta
+      --------------------------+----------------------------------------------------------------
+      mtdna_ccf_log_d_post_b1b2 |    .155238   2.253073     0.07   0.945                 .0103866
+                          _cons |  -30.17046   3.167491    -9.53   0.000                        .
+      -------------------------------------------------------------------------------------------
+      
+      . 
+      . preserve
+      
+      . center lsassr_d_post_b1b2 mtdna_ccf_log_d_post_b1b2  if group == 0, inplace standardize
+      (modified variables: lsassr_d_post_b1b2 mtdna_ccf_log_d_post_b1b2)
+      
+      . regress lsassr_d_post_b1b2 mtdna_ccf_log_d_post_b1b2 if group == 0, noconstant vce(bootstrap _b, nodots verbose reps(1000))
+      
+      Linear regression                               Number of obs     =         46
+                                                      Replications      =      1,000
+                                                      Wald chi2(1)      =       0.00
+                                                      Prob > chi2       =     0.9488
+                                                      R-squared         =     0.0001
+                                                      Adj R-squared     =    -0.0221
+                                                      Root MSE          =     0.9999
+      
+      -------------------------------------------------------------------------------------------
+                                |   Observed   Bootstrap                         Normal-based
+             lsassr_d_post_b1b2 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      --------------------------+----------------------------------------------------------------
+      mtdna_ccf_log_d_post_b1b2 |   .0103866   .1618026     0.06   0.949    -.3067406    .3275138
+      -------------------------------------------------------------------------------------------
+      
+      . restore
+      
+      . 
+      . permute lsassr_d_post_b1b2 _b[mtdna_ccf_log_d_post_b1b2], verbose nodots reps(1000): regress lsassr_d_post_b1b2 mtdna_ccf_log_d_post_b1b2  if group 
+      > == 0
+      
+      Monte Carlo permutation results                 Number of obs     =         46
+      
+            command:  regress lsassr_d_post_b1b2 mtdna_ccf_log_d_post_b1b2
+              _pm_1:  _b[mtdna_ccf_log_d_post_b1b2]
+        permute var:  lsassr_d_post_b1b2
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             _pm_1 |    .155238     948    1000  0.9480  0.0070   .932365   .9609235
+      ------------------------------------------------------------------------------
+      Note: Confidence interval is with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . 
+      . **mtDNA-cn
+      . gen mtdna_ccf_log_d_post_b2 = mtdna_ccf_log18-mtdna_ccf_log9
+      (42 missing values generated)
+      
+      . gen mtdna_ratio_log_d_post_b2 = mtdna_ratio_log18-mtdna_ratio_log9
+      (42 missing values generated)
+      
+      . 
+      . reg lsassr_d_post_b1b2 mtdna_ratio_log_d_post_b1b2 if group == 0, beta
+      
+            Source |       SS           df       MS      Number of obs   =        45
+      -------------+----------------------------------   F(1, 43)        =      0.22
+             Model |  100.781131         1  100.781131   Prob > F        =    0.6452
+          Residual |  20149.9189        43  468.602764   R-squared       =    0.0050
+      -------------+----------------------------------   Adj R-squared   =   -0.0182
+             Total |     20250.7        44  460.243182   Root MSE        =    21.647
+      
+      ---------------------------------------------------------------------------------------------
+               lsassr_d_post_b1b2 |      Coef.   Std. Err.      t    P>|t|                     Beta
+      ----------------------------+----------------------------------------------------------------
+      mtdna_ratio_log_d_post_b1b2 |   6.895868   14.86968     0.46   0.645                 .0705455
+                            _cons |  -30.12433   3.232939    -9.32   0.000                        .
+      ---------------------------------------------------------------------------------------------
+      
+      . 
+      . preserve
+      
+      . center lsassr_d_post_b1b2 mtdna_ratio_log_d_post_b1b2  if group == 0, inplace standardize
+      (modified variables: lsassr_d_post_b1b2 mtdna_ratio_log_d_post_b1b2)
+      
+      . regress lsassr_d_post_b1b2 mtdna_ratio_log_d_post_b1b2 if group == 0, noconstant vce(bootstrap _b, nodots verbose reps(1000))
+      
+      Linear regression                               Number of obs     =         45
+                                                      Replications      =      1,000
+                                                      Wald chi2(1)      =       0.26
+                                                      Prob > chi2       =     0.6116
+                                                      R-squared         =     0.0050
+                                                      Adj R-squared     =    -0.0176
+                                                      Root MSE          =     1.0079
+      
+      ---------------------------------------------------------------------------------------------
+                                  |   Observed   Bootstrap                         Normal-based
+               lsassr_d_post_b1b2 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      ----------------------------+----------------------------------------------------------------
+      mtdna_ratio_log_d_post_b1b2 |   .0712814   .1403892     0.51   0.612    -.2038764    .3464393
+      ---------------------------------------------------------------------------------------------
+      
+      . restore
+      
+      . 
+      . permute lsassr_d_post_b1b2 _b[mtdna_ratio_log_d_post_b1b2], verbose nodots reps(1000): regress lsassr_d_post_b1b2 mtdna_ratio_log_d_post_b1b2  if gr
+      > oup == 0
+      
+      Monte Carlo permutation results                 Number of obs     =         46
+      
+            command:  regress lsassr_d_post_b1b2 mtdna_ratio_log_d_post_b1b2
+              _pm_1:  _b[mtdna_ratio_log_d_post_b1b2]
+        permute var:  lsassr_d_post_b1b2
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             _pm_1 |   6.895868     655    1000  0.6550  0.0150   .624614   .6844701
+      ------------------------------------------------------------------------------
+      Note: Confidence interval is with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . 
+      . translate @Results "section_3.0_paragraph_2_mtDNA_changes_clinical_correlations.txt", cmdnumber(off) logo(off) replace

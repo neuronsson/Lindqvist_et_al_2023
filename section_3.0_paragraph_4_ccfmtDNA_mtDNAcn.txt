@@ -1,0 +1,134 @@
+      
+      . *Section 3.0: Results, forth paragraph
+      . **ccf-mtDNA  and mtDNA-cn correlations
+      . ***Patients only
+      . ****ccf-mtDNA x mtDNA @ B1
+      . reg mtdna_ccf_log1 mtdna_ratio_log1 lymph_monocytes1, beta
+      
+            Source |       SS           df       MS      Number of obs   =        45
+      -------------+----------------------------------   F(2, 42)        =      0.29
+             Model |  .385289395         2  .192644697   Prob > F        =    0.7493
+          Residual |  27.8380889        42  .662811641   R-squared       =    0.0137
+      -------------+----------------------------------   Adj R-squared   =   -0.0333
+             Total |  28.2233783        44  .641440417   Root MSE        =    .81413
+      
+      ----------------------------------------------------------------------------------
+        mtdna_ccf_log1 |      Coef.   Std. Err.      t    P>|t|                     Beta
+      -----------------+----------------------------------------------------------------
+      mtdna_ratio_log1 |  -.4003095   .5403496    -0.74   0.463                -.1136318
+      lymph_monocytes1 |   .0152119   .0719854     0.21   0.834                 .0324129
+                 _cons |   4.958042   .3848704    12.88   0.000                        .
+      ----------------------------------------------------------------------------------
+      
+      . 
+      . preserve
+      
+      . center mtdna_ccf_log1 mtdna_ratio_log1 lymph_monocytes1 if group == 0, inplace standardize
+      (modified variables: mtdna_ccf_log1 mtdna_ratio_log1 lymph_monocytes1)
+      
+      . regress mtdna_ccf_log1 mtdna_ratio_log1 lymph_monocytes1 if group == 0, noconstant vce(bootstrap _b, nodots verbose reps(1000))
+      
+      Linear regression                               Number of obs     =         45
+                                                      Replications      =      1,000
+                                                      Wald chi2(2)      =       1.28
+                                                      Prob > chi2       =     0.5276
+                                                      R-squared         =     0.0136
+                                                      Adj R-squared     =    -0.0322
+                                                      Root MSE          =     1.0160
+      
+      ----------------------------------------------------------------------------------
+                       |   Observed   Bootstrap                         Normal-based
+        mtdna_ccf1_log |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      -----------------+----------------------------------------------------------------
+      mtdna_ratio1_log |  -.1149122   .1092778    -1.05   0.293    -.3290928    .0992683
+      lymph_monocytes1 |   .0326436   .1495609     0.22   0.827    -.2604905    .3257776
+      ----------------------------------------------------------------------------------
+      
+      . restore
+      
+      . 
+      . permute mtdna_ccf_log1 _b[mtdna_ratio_log1] _b[lymph_monocytes1], verbose nodots reps(1000): regress mtdna_ccf_log1 mtdna_ratio_log1 lymph_monocytes1 if group == 0
+      
+      Monte Carlo permutation results                 Number of obs     =         46
+      
+            command:  regress mtdna_ccf_log1 mtdna_ratio_log1 lymph_monocytes1
+              _pm_1:  _b[mtdna_ratio_log1]
+              _pm_2:  _b[lymph_monocytes1]
+        permute var:  mtdna_ccf_log1
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             _pm_1 |  -.4003095     445    1000  0.4450  0.0157  .4138991   .4764256
+             _pm_2 |   .0152119     817    1000  0.8170  0.0122  .7916134   .8405042
+      ------------------------------------------------------------------------------
+      Note: Confidence intervals are with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . 
+      . ****ccf-mtDNA x mtDNA @ B2
+      . reg mtdna_ccf_log9 mtdna_ratio_log9 lymph_monocytes9, beta
+      
+            Source |       SS           df       MS      Number of obs   =        46
+      -------------+----------------------------------   F(2, 43)        =      1.41
+             Model |  4.49074438         2  2.24537219   Prob > F        =    0.2561
+          Residual |  68.6647764        43  1.59685527   R-squared       =    0.0614
+      -------------+----------------------------------   Adj R-squared   =    0.0177
+             Total |  73.1555208        45  1.62567824   Root MSE        =    1.2637
+      
+      ----------------------------------------------------------------------------------
+        mtdna_ccf_log9 |      Coef.   Std. Err.      t    P>|t|                     Beta
+      -----------------+----------------------------------------------------------------
+      mtdna_ratio_log9 |  -1.143335    .852561    -1.34   0.187                -.2100385
+      lymph_monocytes9 |  -.1505284   .1079142    -1.39   0.170                -.2184695
+                 _cons |   6.163535   .5484944    11.24   0.000                        .
+      ----------------------------------------------------------------------------------
+      
+      . 
+      . preserve
+      
+      . center mtdna_ccf_log9 mtdna_ratio_log9 lymph_monocytes9 if group == 0, inplace standardize
+      (modified variables: mtdna_ccf_log9 mtdna_ratio_log9 lymph_monocytes9)
+      
+      . regress mtdna_ccf_log9 mtdna_ratio_log9 lymph_monocytes9 if group == 0, noconstant vce(bootstrap _b, nodots verbose reps(1000))
+      
+      Linear regression                               Number of obs     =         46
+                                                      Replications      =      1,000
+                                                      Wald chi2(2)      =       2.41
+                                                      Prob > chi2       =     0.2994
+                                                      R-squared         =     0.0614
+                                                      Adj R-squared     =     0.0187
+                                                      Root MSE          =     0.9798
+      
+      ----------------------------------------------------------------------------------
+                       |   Observed   Bootstrap                         Normal-based
+        mtdna_ccf9_log |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      -----------------+----------------------------------------------------------------
+      mtdna_ratio9_log |  -.2100385   .1869836    -1.12   0.261    -.5765197    .1564427
+      lymph_monocytes9 |  -.2184695   .1431066    -1.53   0.127    -.4989534    .0620143
+      ----------------------------------------------------------------------------------
+      
+      . restore
+      
+      . 
+      . permute mtdna_ccf_log9 _b[mtdna_ratio_log9] _b[lymph_monocytes9], verbose nodots reps(1000): regress mtdna_ccf_log9 mtdna_ratio_log9 lymph_monocytes9 if group == 0
+      
+      Monte Carlo permutation results                 Number of obs     =         46
+      
+            command:  regress mtdna_ccf_log9 mtdna_ratio_log9 lymph_monocytes9
+              _pm_1:  _b[mtdna_ratio_log9]
+              _pm_2:  _b[lymph_monocytes9]
+        permute var:  mtdna_ccf_log9
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             _pm_1 |  -1.143335     187    1000  0.1870  0.0123  .1632832   .2125751
+             _pm_2 |  -.1505284     162    1000  0.1620  0.0117  .1396851   .1863247
+      ------------------------------------------------------------------------------
+      Note: Confidence intervals are with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . translate @Results "section_3.0_paragraph_4_ccfmtDNA_mtDNAcn.txt", cmdnumber(off) logo(off) replace

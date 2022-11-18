@@ -1,0 +1,309 @@
+      
+      . *Section 3.0: Results, third paragraph
+      . *ccf mtDNA test-retest/correlation: B1-B2
+      . **All participants
+      . reg mtdna_ccf_log1 mtdna_ccf_log9, beta
+      
+            Source |       SS           df       MS      Number of obs   =        87
+      -------------+----------------------------------   F(1, 85)        =     56.28
+             Model |  28.0411271         1  28.0411271   Prob > F        =    0.0000
+          Residual |  42.3473661        85  .498204307   R-squared       =    0.3984
+      -------------+----------------------------------   Adj R-squared   =    0.3913
+             Total |  70.3884932        86  .818470851   Root MSE        =    .70584
+      
+      --------------------------------------------------------------------------------
+      mtdna_ccf_log1 |      Coef.   Std. Err.      t    P>|t|                     Beta
+      ---------------+----------------------------------------------------------------
+      mtdna_ccf_log9 |   .4832603    .064415     7.50   0.000                 .6311708
+               _cons |   2.539265   .3902694     6.51   0.000                        .
+      --------------------------------------------------------------------------------
+      
+      . 
+      . preserve
+      
+      . center mtdna_ccf_log1 mtdna_ccf_log9, inplace standardize
+      (modified variables: mtdna_ccf_log1 mtdna_ccf_log9)
+      
+      . regress mtdna_ccf_log1 mtdna_ccf_log9, noconstant vce(bootstrap _b, nodots verbose reps(1000))
+      
+      Linear regression                               Number of obs     =         87
+                                                      Replications      =      1,000
+                                                      Wald chi2(1)      =      25.93
+                                                      Prob > chi2       =     0.0000
+                                                      R-squared         =     0.3982
+                                                      Adj R-squared     =     0.3912
+                                                      Root MSE          =     0.7681
+      
+      --------------------------------------------------------------------------------
+                     |   Observed   Bootstrap                         Normal-based
+      mtdna_ccf1_log |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      ---------------+----------------------------------------------------------------
+      mtdna_ccf9_log |   .6248411   .1227132     5.09   0.000     .3843276    .8653545
+      --------------------------------------------------------------------------------
+      
+      . restore
+      
+      . 
+      . permute mtdna_ccf_log1 _b[mtdna_ccf_log9], verbose nodots reps(1000): regress mtdna_ccf_log1 mtdna_ccf_log9
+      
+      Monte Carlo permutation results                 Number of obs     =         88
+      
+            command:  regress mtdna_ccf_log1 mtdna_ccf_log9
+              _pm_1:  _b[mtdna_ccf_log9]
+        permute var:  mtdna_ccf_log1
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             _pm_1 |   .4832603       0    1000  0.0000  0.0000         0   .0036821
+      ------------------------------------------------------------------------------
+      Note: Confidence interval is with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . 
+      . **Patients B1-B2
+      . reg mtdna_ccf_log1 mtdna_ccf_log9 if group == 0, beta
+      
+            Source |       SS           df       MS      Number of obs   =        46
+      -------------+----------------------------------   F(1, 44)        =     17.15
+             Model |   7.9171047         1   7.9171047   Prob > F        =    0.0002
+          Residual |  20.3074385        44  .461532694   R-squared       =    0.2805
+      -------------+----------------------------------   Adj R-squared   =    0.2642
+             Total |  28.2245432        45  .627212072   Root MSE        =    .67936
+      
+      --------------------------------------------------------------------------------
+      mtdna_ccf_log1 |      Coef.   Std. Err.      t    P>|t|                     Beta
+      ---------------+----------------------------------------------------------------
+      mtdna_ccf_log9 |   .3289725   .0794287     4.14   0.000                 .5296265
+               _cons |   3.281824   .4461245     7.36   0.000                        .
+      --------------------------------------------------------------------------------
+      
+      . 
+      . preserve
+      
+      . center mtdna_ccf_log1 mtdna_ccf_log9 if group == 0, inplace standardize
+      (modified variables: mtdna_ccf_log1 mtdna_ccf_log9)
+      
+      . regress mtdna_ccf_log1 mtdna_ccf_log9 if group == 0, noconstant vce(bootstrap _b, nodots verbose reps(1000))
+      
+      Linear regression                               Number of obs     =         46
+                                                      Replications      =      1,000
+                                                      Wald chi2(1)      =       7.79
+                                                      Prob > chi2       =     0.0053
+                                                      R-squared         =     0.2805
+                                                      Adj R-squared     =     0.2645
+                                                      Root MSE          =     0.8482
+      
+      --------------------------------------------------------------------------------
+                     |   Observed   Bootstrap                         Normal-based
+      mtdna_ccf1_log |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      ---------------+----------------------------------------------------------------
+      mtdna_ccf9_log |   .5296265   .1898185     2.79   0.005      .157589     .901664
+      --------------------------------------------------------------------------------
+      
+      . restore
+      
+      . 
+      . permute mtdna_ccf_log1 _b[mtdna_ccf_log9], verbose nodots reps(1000): regress mtdna_ccf_log1 mtdna_ccf_log9 if group == 0
+      
+      Monte Carlo permutation results                 Number of obs     =         46
+      
+            command:  regress mtdna_ccf_log1 mtdna_ccf_log9
+              _pm_1:  _b[mtdna_ccf_log9]
+        permute var:  mtdna_ccf_log1
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             _pm_1 |   .3289725       0    1000  0.0000  0.0000         0   .0036821
+      ------------------------------------------------------------------------------
+      Note: Confidence interval is with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . 
+      . **Patients B1-POST
+      . reg mtdna_ccf_log1 mtdna_ccf_log18 if group == 0, beta
+      
+            Source |       SS           df       MS      Number of obs   =        46
+      -------------+----------------------------------   F(1, 44)        =      1.72
+             Model |   1.0604212         1   1.0604212   Prob > F        =    0.1968
+          Residual |   27.164122        44   .61736641   R-squared       =    0.0376
+      -------------+----------------------------------   Adj R-squared   =    0.0157
+             Total |  28.2245432        45  .627212072   Root MSE        =    .78573
+      
+      ---------------------------------------------------------------------------------
+       mtdna_ccf_log1 |      Coef.   Std. Err.      t    P>|t|                     Beta
+      ----------------+----------------------------------------------------------------
+      mtdna_ccf_log18 |   .1159355   .0884603     1.31   0.197                 .1938321
+                _cons |   4.464952   .4851385     9.20   0.000                        .
+      ---------------------------------------------------------------------------------
+      
+      . 
+      . preserve
+      
+      . center mtdna_ccf_log1 mtdna_ccf_log18 if group == 0, inplace standardize
+      (modified variables: mtdna_ccf_log1 mtdna_ccf_log18)
+      
+      . regress mtdna_ccf_log1 mtdna_ccf_log18 if group == 0, noconstant vce(bootstrap _b, nodots verbose reps(1000))
+      
+      Linear regression                               Number of obs     =         46
+                                                      Replications      =      1,000
+                                                      Wald chi2(1)      =       0.74
+                                                      Prob > chi2       =     0.3888
+                                                      R-squared         =     0.0376
+                                                      Adj R-squared     =     0.0162
+                                                      Root MSE          =     0.9810
+      
+      ---------------------------------------------------------------------------------
+                      |   Observed   Bootstrap                         Normal-based
+       mtdna_ccf1_log |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      ----------------+----------------------------------------------------------------
+      mtdna_ccf18_log |   .1938321   .2249138     0.86   0.389    -.2469909    .6346551
+      ---------------------------------------------------------------------------------
+      
+      . restore
+      
+      . 
+      . permute mtdna_ccf_log1 _b[mtdna_ccf_log18], verbose nodots reps(1000): regress mtdna_ccf_log1 mtdna_ccf_log18 if group == 0
+      
+      Monte Carlo permutation results                 Number of obs     =         46
+      
+            command:  regress mtdna_ccf_log1 mtdna_ccf_log18
+              _pm_1:  _b[mtdna_ccf_log18]
+        permute var:  mtdna_ccf_log1
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             _pm_1 |   .1159355     191    1000  0.1910  0.0124  .1670748   .2167594
+      ------------------------------------------------------------------------------
+      Note: Confidence interval is with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . 
+      . **Patients B2-POST
+      . reg mtdna_ccf_log9 mtdna_ccf_log18 if group == 0, beta
+      
+            Source |       SS           df       MS      Number of obs   =        46
+      -------------+----------------------------------   F(1, 44)        =      2.13
+             Model |  3.37395422         1  3.37395422   Prob > F        =    0.1518
+          Residual |  69.7815666        44   1.5859447   R-squared       =    0.0461
+      -------------+----------------------------------   Adj R-squared   =    0.0244
+             Total |  73.1555208        45  1.62567824   Root MSE        =    1.2593
+      
+      ---------------------------------------------------------------------------------
+       mtdna_ccf_log9 |      Coef.   Std. Err.      t    P>|t|                     Beta
+      ----------------+----------------------------------------------------------------
+      mtdna_ccf_log18 |   .2067982    .141782     1.46   0.152                 .2147564
+                _cons |   4.371938   .7775678     5.62   0.000                        .
+      ---------------------------------------------------------------------------------
+      
+      . 
+      . preserve
+      
+      . center mtdna_ccf_log9 mtdna_ccf_log18 if group == 0, inplace standardize
+      (modified variables: mtdna_ccf_log9 mtdna_ccf_log18)
+      
+      . regress mtdna_ccf_log9 mtdna_ccf_log18 if group == 0, noconstant vce(bootstrap _b, nodots verbose reps(1000))
+      
+      Linear regression                               Number of obs     =         46
+                                                      Replications      =      1,000
+                                                      Wald chi2(1)      =       1.09
+                                                      Prob > chi2       =     0.2969
+                                                      R-squared         =     0.0461
+                                                      Adj R-squared     =     0.0249
+                                                      Root MSE          =     0.9767
+      
+      ---------------------------------------------------------------------------------
+                      |   Observed   Bootstrap                         Normal-based
+       mtdna_ccf9_log |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      ----------------+----------------------------------------------------------------
+      mtdna_ccf18_log |   .2147564   .2058795     1.04   0.297    -.1887601    .6182728
+      ---------------------------------------------------------------------------------
+      
+      . restore
+      
+      . 
+      . permute mtdna_ccf_log9 _b[mtdna_ccf_log18], verbose nodots reps(1000): regress mtdna_ccf_log9 mtdna_ccf_log18 if group == 0
+      
+      Monte Carlo permutation results                 Number of obs     =         46
+      
+            command:  regress mtdna_ccf_log9 mtdna_ccf_log18
+              _pm_1:  _b[mtdna_ccf_log18]
+        permute var:  mtdna_ccf_log9
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             _pm_1 |   .2067982     148    1000  0.1480  0.0112  .1265527   .1715424
+      ------------------------------------------------------------------------------
+      Note: Confidence interval is with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . 
+      . **Healthy controls B1-B2
+      . reg mtdna_ccf_log1 mtdna_ccf_log9 if group == 1, beta
+      
+            Source |       SS           df       MS      Number of obs   =        41
+      -------------+----------------------------------   F(1, 39)        =     31.15
+             Model |  14.0235209         1  14.0235209   Prob > F        =    0.0000
+          Residual |  17.5599326        39  .450254681   R-squared       =    0.4440
+      -------------+----------------------------------   Adj R-squared   =    0.4298
+             Total |  31.5834535        40  .789586338   Root MSE        =    .67101
+      
+      --------------------------------------------------------------------------------
+      mtdna_ccf_log1 |      Coef.   Std. Err.      t    P>|t|                     Beta
+      ---------------+----------------------------------------------------------------
+      mtdna_ccf_log9 |   .7443129   .1333694     5.58   0.000                 .6663444
+               _cons |   .9641937   .8694355     1.11   0.274                        .
+      --------------------------------------------------------------------------------
+      
+      . 
+      . preserve
+      
+      . center mtdna_ccf_log1 mtdna_ccf_log9 if group == 1, inplace standardize
+      (modified variables: mtdna_ccf_log1 mtdna_ccf_log9)
+      
+      . regress mtdna_ccf_log1 mtdna_ccf_log9 if group == 1, noconstant vce(bootstrap _b, nodots verbose reps(1000))
+      
+      Linear regression                               Number of obs     =         41
+                                                      Replications      =      1,000
+                                                      Wald chi2(1)      =      12.69
+                                                      Prob > chi2       =     0.0004
+                                                      R-squared         =     0.4429
+                                                      Adj R-squared     =     0.4289
+                                                      Root MSE          =     0.7183
+      
+      --------------------------------------------------------------------------------
+                     |   Observed   Bootstrap                         Normal-based
+      mtdna_ccf1_log |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      ---------------+----------------------------------------------------------------
+      mtdna_ccf9_log |   .6404022   .1797402     3.56   0.000     .2881178    .9926866
+      --------------------------------------------------------------------------------
+      
+      . restore
+      
+      . 
+      . permute mtdna_ccf_log1 _b[mtdna_ccf_log9], verbose nodots reps(1000): regress mtdna_ccf_log1 mtdna_ccf_log9 if group == 1
+      
+      Monte Carlo permutation results                 Number of obs     =         42
+      
+            command:  regress mtdna_ccf_log1 mtdna_ccf_log9
+              _pm_1:  _b[mtdna_ccf_log9]
+        permute var:  mtdna_ccf_log1
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             _pm_1 |   .7443129       0    1000  0.0000  0.0000         0   .0036821
+      ------------------------------------------------------------------------------
+      Note: Confidence interval is with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . 
+      . translate @Results "section_3.0_paragraph_3_stability.txt", cmdnumber(off) logo(off) replace

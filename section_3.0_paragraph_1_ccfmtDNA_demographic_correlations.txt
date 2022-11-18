@@ -1,0 +1,179 @@
+      
+      . *Section 3.0: Results, first paragraph
+      . *ccf-mtDNA correlation with demographics and smoking
+      . **Age
+      . preserve
+      
+      . center mtdna_ccf_log1 age, inplace standardize
+      (modified variables: mtdna_ccf_log1 age)
+      
+      . regress mtdna_ccf_log1 age, noconstant vce(bootstrap _b, nodots verbose reps(1000))
+      
+      Linear regression                               Number of obs     =         88
+                                                      Replications      =      1,000
+                                                      Wald chi2(1)      =       0.94
+                                                      Prob > chi2       =     0.3331
+                                                      R-squared         =     0.0089
+                                                      Adj R-squared     =    -0.0025
+                                                      Root MSE          =     0.9955
+      
+      ------------------------------------------------------------------------------
+                   |   Observed   Bootstrap                         Normal-based
+      mtdna_ccf_~1 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+               age |  -.0943769   .0975044    -0.97   0.333    -.2854821    .0967283
+      ------------------------------------------------------------------------------
+      
+      . restore
+      
+      . 
+      . permute mtdna_ccf_log1 _b[age], verbose nodots reps(1000): regress mtdna_ccf_log1 age
+      
+      Monte Carlo permutation results                 Number of obs     =         88
+      
+            command:  regress mtdna_ccf_log1 age
+              _pm_1:  _b[age]
+        permute var:  mtdna_ccf_log1
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             _pm_1 |   -.009747     404    1000  0.4040  0.0155  .3734077   .4351592
+      ------------------------------------------------------------------------------
+      Note: Confidence interval is with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . 
+      . **Sex
+      . preserve
+      
+      . center mtdna_ccf_log1 sex, inplace standardize
+      (modified variables: mtdna_ccf_log1 sex)
+      
+      . regress mtdna_ccf_log1 sex, noconstant vce(bootstrap _b, nodots verbose reps(1000))
+      
+      Linear regression                               Number of obs     =         88
+                                                      Replications      =      1,000
+                                                      Wald chi2(1)      =       1.93
+                                                      Prob > chi2       =     0.1652
+                                                      R-squared         =     0.0198
+                                                      Adj R-squared     =     0.0085
+                                                      Root MSE          =     0.9901
+      
+      ------------------------------------------------------------------------------
+                   |   Observed   Bootstrap                         Normal-based
+      mtdna~f1_log |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+               sex |  -.1406153   .1013319    -1.39   0.165    -.3392222    .0579916
+      ------------------------------------------------------------------------------
+      
+      . restore
+      
+      . 
+      . permute mtdna_ccf_log1 _b[sex], verbose nodots reps(1000): regress mtdna_ccf_log1 sex
+      
+      Monte Carlo permutation results                 Number of obs     =         88
+      
+            command:  regress mtdna_ccf_log1 sex
+              _pm_1:  _b[sex]
+        permute var:  mtdna_ccf_log1
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             _pm_1 |  -.2610601     189    1000  0.1890  0.0124  .1651785   .2146677
+      ------------------------------------------------------------------------------
+      Note: Confidence interval is with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . **Smoking
+      . preserve
+      
+      . center mtdna_ccf_log1 smoking, inplace standardize
+      (modified variables: mtdna_ccf_log1 smoking)
+      
+      . regress mtdna_ccf_log1 smoking, noconstant vce(bootstrap _b, nodots verbose reps(1000))
+      
+      Linear regression                               Number of obs     =         88
+                                                      Replications      =      1,000
+                                                      Wald chi2(1)      =       3.81
+                                                      Prob > chi2       =     0.0509
+                                                      R-squared         =     0.0306
+                                                      Adj R-squared     =     0.0195
+                                                      Root MSE          =     0.9846
+      
+      ------------------------------------------------------------------------------
+                   |   Observed   Bootstrap                         Normal-based
+      mtdna~f1_log |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+           smoking |   .1750583   .0896803     1.95   0.051    -.0007119    .3508285
+      ------------------------------------------------------------------------------
+      
+      . restore
+      
+      . 
+      . permute mtdna_ccf_log1 _b[smoking], verbose nodots reps(1000): regress mtdna_ccf_log1 smoking
+      
+      Monte Carlo permutation results                 Number of obs     =         88
+      
+            command:  regress mtdna_ccf_log1 smoking
+              _pm_1:  _b[smoking]
+        permute var:  mtdna_ccf_log1
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             _pm_1 |   .4635166      88    1000  0.0880  0.0090  .0711751   .1072948
+      ------------------------------------------------------------------------------
+      Note: Confidence interval is with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . **BMI
+      . preserve
+      
+      . center mtdna_ccf_log1 bmi1, inplace standardize
+      (modified variables: mtdna_ccf_log1 bmi1)
+      
+      . regress mtdna_ccf_log1 bmi1, noconstant vce(bootstrap _b, nodots verbose reps(1000))
+      
+      Linear regression                               Number of obs     =         88
+                                                      Replications      =      1,000
+                                                      Wald chi2(1)      =       0.12
+                                                      Prob > chi2       =     0.7345
+                                                      R-squared         =     0.0009
+                                                      Adj R-squared     =    -0.0106
+                                                      Root MSE          =     0.9996
+      
+      ------------------------------------------------------------------------------
+                   |   Observed   Bootstrap                         Normal-based
+      mtdna~f1_log |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+              bmi1 |   -.029799   .0878601    -0.34   0.734    -.2020016    .1424037
+      ------------------------------------------------------------------------------
+      
+      . restore
+      
+      . 
+      . permute mtdna_ccf_log1 _b[bmi1], verbose nodots reps(1000): regress mtdna_ccf_log1 bmi1
+      
+      Monte Carlo permutation results                 Number of obs     =         88
+      
+            command:  regress mtdna_ccf_log1 bmi1
+              _pm_1:  _b[bmi1]
+        permute var:  mtdna_ccf_log1
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             _pm_1 |  -.0070242     755    1000  0.7550  0.0136  .7271159   .7813738
+      ------------------------------------------------------------------------------
+      Note: Confidence interval is with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . 
+      . translate @Results "section_3.0_paragraph_1_ccfmtDNA_demographic_correlations.txt", cmdnumber(off) logo(off) replace
+      (note: file section_3.0_paragraph_1_ccfmtDNA_demographic_correlations.txt not found)

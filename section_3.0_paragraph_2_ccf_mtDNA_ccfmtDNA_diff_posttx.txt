@@ -1,0 +1,89 @@
+      
+      . *Section 3.0: Results, second paragraph
+      . **Comparing SAD patients at post-treatment with healthy controls at baseline 2
+      . gen mtdna_ccf_tmp = mtdna_ccf_log18 if group == 0
+      (42 missing values generated)
+      
+      . replace mtdna_ccf_tmp = mtdna_ccf_log9 if group == 1
+      (41 real changes made)
+      
+      . 
+      . bootstrap, reps(1000) nodots verbose: regress mtdna_ccf_tmp i.group
+      
+      Linear regression                               Number of obs     =         87
+                                                      Replications      =      1,000
+                                                      Wald chi2(1)      =      23.03
+                                                      Prob > chi2       =     0.0000
+                                                      R-squared         =     0.2145
+                                                      Adj R-squared     =     0.2053
+                                                      Root MSE          =     1.1072
+      
+      ------------------------------------------------------------------------------
+                   |   Observed   Bootstrap                         Normal-based
+      mtdna_ccf_~p |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             group |
+               HC  |   1.145889    .238802     4.80   0.000     .6778459    1.613933
+             _cons |   5.325588   .2005673    26.55   0.000     4.932484    5.718693
+      ------------------------------------------------------------------------------
+      
+      . margins group
+      
+      Adjusted predictions                            Number of obs     =         87
+      Model VCE    : Bootstrap
+      
+      Expression   : Linear prediction, predict()
+      
+      ------------------------------------------------------------------------------
+                   |            Delta-method
+                   |     Margin   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             group |
+              SAD  |   5.325588   .2005673    26.55   0.000     4.932484    5.718693
+               HC  |   6.471478    .125918    51.39   0.000     6.224683    6.718272
+      ------------------------------------------------------------------------------
+      
+      . 
+      . preserve
+      
+      . center mtdna_ccf_tmp group, inplace standardize
+      (modified variables: mtdna_ccf_tmp group)
+      
+      . regress mtdna_ccf_tmp group, noconstant vce(bootstrap _b, nodots verbose reps(1000))
+      
+      Linear regression                               Number of obs     =         87
+                                                      Replications      =      1,000
+                                                      Wald chi2(1)      =      24.08
+                                                      Prob > chi2       =     0.0000
+                                                      R-squared         =     0.2145
+                                                      Adj R-squared     =     0.2054
+                                                      Root MSE          =     0.8863
+      
+      ------------------------------------------------------------------------------
+                   |   Observed   Bootstrap                         Normal-based
+      mtdna_ccf_~p |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             group |   .4633845   .0944399     4.91   0.000     .2782857    .6484834
+      ------------------------------------------------------------------------------
+      
+      . restore
+      
+      . 
+      . permute mtdna_ccf_tmp _b[group], verbose nodots reps(1000): regress mtdna_ccf_tmp group
+      
+      Monte Carlo permutation results                 Number of obs     =         88
+      
+            command:  regress mtdna_ccf_tmp group
+              _pm_1:  _b[group]
+        permute var:  mtdna_ccf_tmp
+      
+      ------------------------------------------------------------------------------
+      T            |     T(obs)       c       n   p=c/n   SE(p) [95% Conf. Interval]
+      -------------+----------------------------------------------------------------
+             _pm_1 |   1.145889       0    1000  0.0000  0.0000         0   .0036821
+      ------------------------------------------------------------------------------
+      Note: Confidence interval is with respect to p=c/n.
+      Note: c = #{|T| >= |T(obs)|}
+      
+      . 
+      . translate @Results "section_3.0_paragraph_2_ccf_mtDNA_ccfmtDNA_diff_posttx.txt", cmdnumber(off) logo(off) replace

@@ -1,0 +1,106 @@
+      
+      . *Section 3.0: Table 1
+      . **Age, SAD age of onset, sex
+      . tabstat age, statistics(n mean sd) by(group)
+      
+      Summary for variables: age
+           by categories of: group (Group)
+      
+       group |         N      mean        sd
+      -------+------------------------------
+         SAD |        46  30.73913  8.322486
+          HC |        42  31.88095  9.456453
+      -------+------------------------------
+       Total |        88  31.28409  8.848597
+      --------------------------------------
+      
+      . 
+      . tabstat age_sad_debute, statistics(n mean sd)
+      
+          variable |         N      mean        sd
+      -------------+------------------------------
+      age_sad_de~e |        46  13.76087  4.743111
+      --------------------------------------------
+      
+      . 
+      . tab sex group, column
+      
+      +-------------------+
+      | Key               |
+      |-------------------|
+      |     frequency     |
+      | column percentage |
+      +-------------------+
+      
+                 |         Group
+             Sex |       SAD         HC |     Total
+      -----------+----------------------+----------
+            Male |        17         18 |        35 
+                 |     36.96      42.86 |     39.77 
+      -----------+----------------------+----------
+          Female |        29         24 |        53 
+                 |     63.04      57.14 |     60.23 
+      -----------+----------------------+----------
+           Total |        46         42 |        88 
+                 |    100.00     100.00 |    100.00 
+      
+      . 
+      . **Clinical scores
+      . tabstat lsassr1 lsassr9 lsassr18, statistics(n mean sd) by(group)
+      
+      Summary statistics: N, mean, sd
+        by categories of: group (Group)
+      
+       group |   lsassr1   lsassr9  lsassr18
+      -------+------------------------------
+         SAD |        46        46        46
+             |        76  73.36957  44.52174
+             |  18.97015  20.64015  23.44804
+      -------+------------------------------
+          HC |        42        41         0
+             |  9.857143  11.14634         .
+             |  10.26139  10.76467         .
+      -------+------------------------------
+       Total |        88        87        46
+             |  44.43182  44.04598  44.52174
+             |  36.60281  35.39442  23.44804
+      --------------------------------------
+      
+      . 
+      . tabstat madrss1, statistics(n mean sd) by(group)
+      
+      Summary for variables: madrss1
+           by categories of: group (Group)
+      
+       group |         N      mean        sd
+      -------+------------------------------
+         SAD |        46  13.15217  6.235979
+          HC |        42   2.52381  3.262784
+      -------+------------------------------
+       Total |        88  8.079545  7.323748
+      --------------------------------------
+      
+      . 
+      . **ccf-mtDNA
+      . tabstat mtdna_ccf1 mtdna_ccf9 mtdna_ccf18, statistics(n median semean) by(group) columns(statistics)
+      
+      Summary for variables: mtdna_ccf1 mtdna_ccf9 mtdna_ccf18
+           by categories of: group (Group)
+      
+       group |         N       p50  se(mean)
+      -------+------------------------------
+         SAD |        46  164.8323  24.83363
+             |        46  201.8864  245.9735
+             |        46  234.0551  259.9818
+      -------+------------------------------
+          HC |        42   345.207  59.53645
+             |        41   669.622  95.36565
+             |         0         .         .
+      -------+------------------------------
+       Total |        88  242.0599  33.10176
+             |        87  389.8677  137.0154
+             |        46  234.0551  259.9818
+      --------------------------------------
+      
+      . 
+      . translate @Results "section_3.0_table_1.txt", cmdnumber(off) logo(off) replace
